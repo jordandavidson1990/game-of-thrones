@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="books-list">
     <h1>Books</h1>
-    <button class="btn" v-if="selectedBook" v-on:click="handleClick" onClick = "this.style.visibility= 'hidden';">POV Characters</button>
+    <button class="btn" v-if="selectedBook" v-on:click="handleClick" >POV Characters</button>
     <div class="selected-book-container">
 
       <book-detail :povCharactersLink="povCharactersLink" v-if="chosenBook" :selectedBook="selectedBook"  :charactersObjects="povCharactersObjects"></book-detail>
@@ -10,7 +10,6 @@
         <character-item :key="index" v-for="(character,index) in povObjects" :character="character"></character-item>
       </div>
     </div>
-
 
     <select v-on:change="handleChange" v-model="chosenBook">
       <option disabled value="Pick a book">Pick a book...</option>
@@ -56,6 +55,8 @@ export default {
       //
       // }
       // eventBus.$emit('pov-selected', this.povObjects)
+      this.povObjects=[]
+
       eventBus.$emit('book-selected', this.chosenBook);
     },
     handleClick: function(){
@@ -90,8 +91,10 @@ export default {
 
 }
 .btn{
-  padding: 25px;
   background-color: beige;
+  padding: 18px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 .character-list{
   max-height: 28vh;

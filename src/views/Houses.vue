@@ -5,7 +5,7 @@
   <house-detail></house-detail>
   <div class="house-li">
   <ul >
-    <li v-for="house in houses">{{house.name}}</li>
+    <house-list-item :house="house" v-on:click="handleClickHouse" v-for="(house, index) in houses" :key="index"></house-list-item>
   </ul>
 </div>
 </div>
@@ -15,12 +15,19 @@
 
 import HouseFilterForm from '@/components/HouseFilterForm.vue'
 import HouseDetail from '@/components/HouseDetail.vue'
+import HouseListItem from '@/components/HouseListItem.vue'
 export default {
   name:'houses',
   props:['houses'],
   components:{
     "house-filter-form":HouseFilterForm,
-    "house-detail": HouseDetail
+    "house-detail": HouseDetail,
+    "house-list-item":HouseListItem
+  },
+  methods:{
+    handleClickHouse: function(){
+      console.log('click', house);
+    }
   },
   data(){
     return{

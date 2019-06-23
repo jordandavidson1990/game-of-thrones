@@ -6,6 +6,7 @@
 
     <h1>A Song of Ice and Fire</h1>
     <audio controls id="myVideo" autoplay loop hidden>
+
       <iframe src="../public/official-opening-credits-game-of-thrones-hbo.mp3" allow="autoplay" id="audio" style="display:none"></iframe>
 <!--
     <source src="../public/official-opening-credits-game-of-thrones-hbo.mp3" type="audio/mp3"> -->
@@ -21,6 +22,7 @@
     :books="books"
     :houses="houses"
     id="view">
+
   </router-view>
 </div>
 </template>
