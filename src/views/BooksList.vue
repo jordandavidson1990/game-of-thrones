@@ -10,21 +10,20 @@
         <character-item :key="index" v-for="(character,index) in povObjects" :character="character"></character-item>
       </div>
     </div>
+    <div class="book-search">
+      <select v-on:change="handleChange" v-model="chosenBook">
+        <option disabled value="Pick a book">Pick a book...</option>
+        <option v-for="(book, index) in books" :key="index" :value="book"
+        >{{book.name}}</option>
 
-    <select v-on:change="handleChange" v-model="chosenBook">
-      <option disabled value="Pick a book">Pick a book...</option>
-      <option v-for="(book, index) in books" :key="index" :value="book"
-      >{{book.name}}</option>
-
-    </select>
+      </select>
+      <book-filter-form v-model="chosenBook" v-on:change="handleSearch" class="filter-search" :books="books"></book-filter-form>
+    </div>
     <div class="book-list">
       <ul>
-        <li v-for="(book, index) in books" :key="index" :book="book">{{book.name}}</li>
+        <book-list-item v-for="(book, index) in books" :key="index" :book="book" ></book-list-item>
       </ul>
     </div>
-
-
-    <!-- <book-detail :povCharactersLink="povCharactersLink" v-if="chosenBook"></book-detail> -->
   </div>
 </template>
 
@@ -32,12 +31,17 @@
 import {eventBus} from '../main.js'
 import BookDetail from '@/components/BookDetail'
 import CharacterItem from '@/components/CharacterItem'
+import BookListItem from '@/components/BookListItem'
+import BookFilterForm from '@/components/BookFilterForm'
+
 export default {
   name:'book-list',
   props:['books', 'selectedBook', 'povCharactersLink', 'povCharactersObjects'],
   components: {
     "book-detail": BookDetail,
-    "character-item":CharacterItem
+    "character-item":CharacterItem,
+    "book-list-item":BookListItem,
+    "book-filter-form":BookFilterForm
   },
   data(){
     return{
@@ -47,17 +51,11 @@ export default {
   },
   methods:{
     handleChange: function(){
-      // debugger
-      // for(const pov in this.povCharactersLink){
-      //   fetch(this.povCharactersLink[pov])
-      //   .then(res => res.json())
-      //   .then(data => this.povObjects.push(data))
-      //
-      // }
-      // eventBus.$emit('pov-selected', this.povObjects)
       this.povObjects=[]
-
       eventBus.$emit('book-selected', this.chosenBook);
+    },
+    handleSearch: function(){
+      console.log('click');
     },
     handleClick: function(){
       // this.povObjects = []
@@ -67,13 +65,8 @@ export default {
         .then(data => this.povObjects.push(data))
 
       }
-
       eventBus.$emit('pov-selected', this.povObjects)
     }
-    // .then(data => this.povObjects.push(data))
-    // console.log('povobject', this.povObjects);
-    // eventBus.$emit('pov-selected',this.povObjects)
-
   }
 }
 
@@ -118,10 +111,26 @@ select{
   text-align: center;
   font-style: italic;
 }
+form.search-bar.filter-search{
+  position: relative;
+  font-family: ariel;
+  background-color: beige;
+  margin: 10px;
+  width: 40vw;
+  height: 6vw;
+  text-align: center;
+  font-style: italic;
+}
 
 .selected-book-container{
   display: flex;
   max-width: 90%;
+  margin: auto;
+}
+
+.book-search{
+  display: flex;
+  width: 90%;
   margin: auto;
 }
 

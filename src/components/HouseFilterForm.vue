@@ -1,6 +1,6 @@
 <template lang="html">
   <form class="search-bar" v-on:submit.prevent>
-    <input type="text" v-model="search" placeholder="Search for house" v-on:keyup="searchCountry">
+    <input type="text" v-model="search" placeholder="Search for house" v-on:keyup="searchHouse">
   </form>
 </template>
 
@@ -16,9 +16,8 @@ export default {
     }
   },
   methods:{
-    searchCountry: function(){
+    searchHouse: function(){
       let foundHouse = this.houses.find((house) => {
-        // debugger
         return house.name.toLowerCase().includes(this.search.toLowerCase())
       })
       this.selectedHouse = foundHouse
@@ -26,15 +25,6 @@ export default {
     }
   }
 }
-// methods:{
-//     searchCountry(){
-//       let foundCountry = this.countries.find((country) => {
-//         return country.name.toLowerCase().includes((this.search.toLowerCase()))
-//       })
-//       this.selectedCountry = foundCountry
-//       eventBus.$emit('country-change', this.selectedCountry)
-//     }
-//   }
 </script>
 
 <style lang="css" scoped>

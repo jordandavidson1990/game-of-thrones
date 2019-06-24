@@ -18,6 +18,7 @@ export default {
   },
   mounted(){
     eventBus.$on('house-selected', (house) =>{
+      // debugger
       this.house = house
     })
   }
